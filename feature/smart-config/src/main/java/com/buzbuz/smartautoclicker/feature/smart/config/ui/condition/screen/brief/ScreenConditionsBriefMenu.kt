@@ -39,6 +39,9 @@ import com.buzbuz.smartautoclicker.feature.smart.config.ui.condition.OnCondition
 import com.buzbuz.smartautoclicker.feature.smart.config.ui.copy.condition.ConditionCopyDialog
 import com.buzbuz.smartautoclicker.feature.smart.config.ui.condition.screen.selection.ScreenConditionTypeChoice
 import com.buzbuz.smartautoclicker.feature.smart.config.ui.condition.screen.selection.allScreenConditionChoices
+import com.buzbuz.smartautoclicker.feature.smart.config.ui.condition.screen.selection.ImageSourceChoice
+import com.buzbuz.smartautoclicker.feature.smart.config.ui.condition.screen.selection.ImageSourceSelectionDialog
+import com.buzbuz.smartautoclicker.feature.smart.config.ui.condition.screen.selection.allImageSourceChoices
 import com.buzbuz.smartautoclicker.feature.smart.config.ui.condition.screen.color.ColorConditionDialog
 import com.buzbuz.smartautoclicker.feature.smart.config.ui.condition.screen.color.capture.ColorCaptureMenu
 import com.buzbuz.smartautoclicker.feature.smart.config.ui.condition.screen.image.CaptureMenu
@@ -198,7 +201,7 @@ class ScreenConditionsBriefMenu(
                 onChoiceSelectedListener = { choice ->
                     when (choice) {
                         ScreenConditionTypeChoice.OnColorDetected -> showNewColorCaptureOverlay()
-                        ScreenConditionTypeChoice.OnImageDetected -> showNewImageCaptureOverlay()
+                        ScreenConditionTypeChoice.OnImageDetected -> showImageSourceSelectionDialog()
                         ScreenConditionTypeChoice.OnNumberDetected -> viewModel.createNumberCondition(context) { condition ->
                             showScreenConditionConfigDialog(condition)
                         }
@@ -233,6 +236,26 @@ class ScreenConditionsBriefMenu(
                 showScreenConditionConfigDialog(capturedCondition)
             },
             hideCurrent = true,
+        )
+    }
+
+    private fun importImage() {
+    }
+
+    private fun showImageSourceSelectionDialog() {
+        overlayManager.navigateTo(
+            context = context,
+            newOverlay = ImageSourceSelectionDialog(
+                choices = allImageSourceChoices(),
+                onChoiceSelectedListener = { choice ->
+                    when (choice) {
+                        ImageSourceChoice.OnTakeFromScreen -> showNewImageCaptureOverlay()
+                        ImageSourceChoice.OnImportImage -> importImage()
+                    }
+                },
+                onCancelledListener = {},
+            ),
+            hideCurrent = false,
         )
     }
 

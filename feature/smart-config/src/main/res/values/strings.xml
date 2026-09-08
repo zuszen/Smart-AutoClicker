@@ -14,7 +14,7 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Generic =================================================================================================== -->
     <!-- Those values are shared between several dialogs due to their generic meaning, such as name or formatting -->
@@ -60,6 +60,14 @@
 
     <string name="item_image_condition_title">On image detected</string>
     <string name="item_image_condition_desc">Fulfilled when an image is visible somewhere on the screen</string>
+
+    <string name="dialog_title_image_condition_source" tools:ignore="MissingTranslation">Image source</string>
+
+    <string name="item_image_condition_source_screen_title" tools:ignore="MissingTranslation">Take from screen</string>
+    <string name="item_image_condition_source_screen_desc" tools:ignore="MissingTranslation">Capture an image from the screen</string>
+
+    <string name="item_image_condition_source_import_title" tools:ignore="MissingTranslation">Import image</string>
+    <string name="item_image_condition_source_import_desc" tools:ignore="MissingTranslation">Select an image from your device</string>
 
     <string name="item_text_condition_title">On text detected</string>
     <string name="item_text_condition_desc">Fulfilled when a text is visible somewhere on the screen</string>
