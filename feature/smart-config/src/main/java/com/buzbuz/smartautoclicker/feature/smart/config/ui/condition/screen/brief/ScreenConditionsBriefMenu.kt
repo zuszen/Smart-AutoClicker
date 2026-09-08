@@ -16,6 +16,7 @@
  */
 package com.buzbuz.smartautoclicker.feature.smart.config.ui.condition.screen.brief
 
+import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,6 +47,7 @@ import com.buzbuz.smartautoclicker.feature.smart.config.ui.condition.screen.colo
 import com.buzbuz.smartautoclicker.feature.smart.config.ui.condition.screen.color.capture.ColorCaptureMenu
 import com.buzbuz.smartautoclicker.feature.smart.config.ui.condition.screen.image.CaptureMenu
 import com.buzbuz.smartautoclicker.feature.smart.config.ui.condition.screen.image.ImageConditionDialog
+import com.buzbuz.smartautoclicker.feature.smart.config.ui.condition.screen.image.ImagePickerActivity
 import com.buzbuz.smartautoclicker.feature.smart.config.ui.condition.screen.number.NumberConditionDialog
 import com.buzbuz.smartautoclicker.feature.smart.config.ui.condition.screen.selection.ScreenConditionTypeSelectionDialog
 import com.buzbuz.smartautoclicker.feature.smart.config.ui.condition.screen.text.TextConditionDialog
@@ -240,6 +242,22 @@ class ScreenConditionsBriefMenu(
     }
 
     private fun importImage() {
+        ImagePickerActivity.start(context) { bitmap ->
+            showImportedImageCaptureOverlay(bitmap)
+        }
+    }
+
+    private fun showImportedImageCaptureOverlay(bitmap: Bitmap) {
+        overlayManager.navigateTo(
+            context = context,
+            newOverlay = CaptureMenu(
+                initialBitmap = bitmap,
+                onConditionSelected = { capturedCondition ->
+                    showScreenConditionConfigDialog(capturedCondition)
+                },
+            ),
+            hideCurrent = true,
+        )
     }
 
     private fun showImageSourceSelectionDialog() {

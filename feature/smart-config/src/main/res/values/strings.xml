@@ -251,6 +251,7 @@
     <string name="field_select_detection_area_desc">In [%1$d, %2$d, %3$d, %4$d]</string>
 
     <string name="toast_capture_failed">Screenshot failed, no frames were generated.</string>
+    <string name="toast_import_image_failed" tools:ignore="MissingTranslation">Failed to load the selected image.</string>
 
 
     <!-- Dialog Condition Text ==================================================================================== -->

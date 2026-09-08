@@ -43,6 +43,14 @@
             android:noHistory="true"
             android:exported="false"/>
 
+        <activity
+            android:name=".ui.condition.screen.image.ImagePickerActivity"
+            android:theme="@style/AppTheme.TranslucentActivity"
+            android:taskAffinity=""
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:exported="false"/>
+
     </application>
 
 </manifest>

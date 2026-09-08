@@ -16,6 +16,7 @@
  */
 package com.buzbuz.smartautoclicker.feature.smart.config.ui.condition.screen.image
 
+import android.graphics.Bitmap
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -39,10 +40,12 @@ import com.buzbuz.smartautoclicker.core.common.tutorial.domain.model.monitoring.
  * [OverlayMenu] implementation for displaying the area selection menu and the area to be captured in order
  * to create a new event condition.
  *
+ * @param initialBitmap an optional bitmap to be used as capture (e.g. from gallery import) instead of taking a screenshot.
  * @param onConditionSelected listener upon confirmation of the area to be capture to create the event condition.
  */
 class CaptureMenu(
-    private val onConditionSelected: (ScreenCondition.Image) -> Unit
+    private val initialBitmap: Bitmap? = null,
+    private val onConditionSelected: (ScreenCondition.Image) -> Unit,
 ) : OverlayMenu() {
 
     override fun tutorialMonitoringTag(): String = MonitoredOverlayType.CAPTURE_MENU.name
@@ -133,7 +136,13 @@ class CaptureMenu(
 
     override fun onStart() {
         super.onStart()
-        state = SELECTION
+        val bitmap = initialBitmap
+        if (bitmap != null) {
+            selectorView.showCapture(bitmap)
+            state = ADJUST
+        } else {
+            state = SELECTION
+        }
     }
 
     override fun onMenuItemClicked(viewId: Int) {
@@ -185,7 +194,10 @@ class CaptureMenu(
     private fun onCancel() {
         when (state) {
             SELECTION -> back()
-            ADJUST -> state = SELECTION
+            ADJUST -> {
+                if (initialBitmap != null) back()
+                else state = SELECTION
+            }
         }
     }
 
